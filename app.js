@@ -14,7 +14,7 @@ mainContainer.appendChild(createBody());
 
 mainContainer.appendChild(reviewsContainer);
 mainContainer.appendChild(createFooter());
-mainContainer.appendChild(CreateModal());
+document.body.appendChild(CreateModal());
 
 function createHeader() {
 	const container = document.createElement('div');
@@ -112,7 +112,14 @@ function createFooter() {
 	button.innerText = 'Add Review';
 	button.addEventListener('click', function() {
 		const modal = document.getElementById('modal');
+		modal.style.height = '100%';
 		modal.style.display = 'flex';
+		modal.focus();
+		window.scroll({
+			top: 0,
+			left: 0,
+			behavior: 'smooth'
+		});
 		const errorMessages = document.getElementById('errorForm') || null;
 		if (errorMessages) {
 			errorMessages.remove();
@@ -135,7 +142,7 @@ function CreateModal() {
 	container.style.position = 'absolute';
 	container.style.top = 0;
 	container.style.left = 0;
-	container.style.height = '100vh';
+	container.style.height = '100%';
 	container.addEventListener('click', e => {
 		const modal = document.getElementById('modal');
 		const { path } = e;
@@ -210,10 +217,9 @@ function CreateModal() {
 				randomNumberOfLikes
 			);
 			reviewsContainer.appendChild(newReview);
-			// document.getElementById('modal').style.display = 'none';
+			document.getElementById('modal').style.display = 'none';
 			e.target.reset();
 		} else {
-			debugger;
 			const span = document.createElement('span');
 			span.id = 'errorForm';
 			span.innerText = 'Error please add a review body and title to submit.';
